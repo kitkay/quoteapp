@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Quote extends Model
 {
     use HasFactory;
+
+    public $fillable = [
+        'title',
+        'content',
+        'description',
+        'category'
+    ];
 }
