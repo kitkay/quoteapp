@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Quote;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class QuoteFactory extends Factory
 {
+    /**
+     * For Quote Model
+     *
+     * @var string
+     */
+    protected $model = Quote::class;
+
     /**
      * Define the model's default state.
      *
