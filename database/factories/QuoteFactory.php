@@ -17,7 +17,10 @@ class QuoteFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->title(),
+            'content' => $this->faker->text(100),
+            'description' => $this->faker->text(50),
+            'category' => $this->faker->word()
         ];
     }
 }
