@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('quotes', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->string('title', 100);
             $table->text('content');
             $table->string('description', 255);
