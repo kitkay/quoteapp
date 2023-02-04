@@ -12,7 +12,7 @@ class UserFactory extends Factory
 {
     /**
      * Define the model's default state.
-     *
+     *p
      * @return array<string, mixed>
      */
     public function definition()
