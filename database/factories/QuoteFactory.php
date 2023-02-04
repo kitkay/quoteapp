@@ -26,7 +26,7 @@ class QuoteFactory extends Factory
     {
         return [
             'id' => $this->faker->uuid(),
-            'title' => $this->faker->title(),
+            'title' => $this->faker->word(),
             'content' => $this->faker->text(100),
             'description' => $this->faker->text(50),
             'category' => $this->faker->word()
