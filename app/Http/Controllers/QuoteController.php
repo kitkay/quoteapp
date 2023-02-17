@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quote;
 use Illuminate\Http\Request;
 
-class Quote extends Controller
+class QuoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,8 @@ class Quote extends Controller
      */
     public function index()
     {
-        //
+        $quotes = Quote::all()->toArray();
+        return array_reverse($quotes);
     }
 
     /**
