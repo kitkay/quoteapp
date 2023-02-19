@@ -12,9 +12,13 @@ class AuthController extends Controller
 {
     public function login(AuthRequest $request)
     {
-        try{
+        try {
+            $userRequest = $request->only([
+                'email',
+                'password'
+            ]);
 
-            if (!Auth::attempt($request->only('email', 'password'))) {
+            if (!Auth::attempt($userRequest)) {
                 return response()->json([
                     'message' => 'Invalid login details'
                 ], 401);
