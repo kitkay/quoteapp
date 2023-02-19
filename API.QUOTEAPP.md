@@ -4,10 +4,12 @@
 
 ### Architecture
 
-- MVC Approach in creation of RestAPI
-- Usage of sanctum for auths
-- Leveraging Repository Pattern
++ MVC Approach in creation of RestAPI
++ Usage of sanctum for auths
++ Leveraging Repository Pattern
 
 ### Project Structure
 
-- 
++ app/Http/Controllers/API - handles all the API endpoints that would be served.
+
+# WIP
