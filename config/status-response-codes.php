@@ -9,7 +9,6 @@ class ResponseCode
         // Redirection Error CODE
         'HTTP_ERROR_MULTIPLE_CHOICE' => 300,
         'HTTP_ERROR_MOVED_PERMANENTLY' => 301,
-        'HTTP_ERROR_FOUND' => 302,
 
         // Client Error CODE
         'HTTP_ERROR_BAD_REQUEST' => 400,
@@ -35,6 +34,7 @@ class ResponseCode
     public static $successCode = [
         'HTTP_SUCCESS_OK' => 200,
         'HTTP_SUCCESS_CREATED' => 201,
-        'HTTP_SUCCESS_ACCEPTED' => 202
+        'HTTP_SUCCESS_ACCEPTED' => 202,
+        'HTTP_SUCCESS_FOUND' => 302,
     ];
 }
