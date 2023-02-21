@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AuthRequest;
 use App\Models\User;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -34,7 +33,10 @@ class AuthController extends Controller
             ]);
 
         } catch (Exception $ex) {
-
+            return response()->json([
+                'code' => 401,
+                'message' => $ex,
+            ], 401);
         }
     }
 }
