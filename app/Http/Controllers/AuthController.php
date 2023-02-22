@@ -6,6 +6,7 @@ use App\Http\Requests\AuthRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use ResponseCode;
 
 class AuthController extends Controller
 {
@@ -20,7 +21,7 @@ class AuthController extends Controller
             if (!Auth::attempt($userRequest)) {
                 return response()->json([
                     'message' => 'Invalid login details'
-                ], 401);
+                ], ResponseCode::$errorCode['HTTP_ERROR_UNAUTHORIZED']);
             }
 
             $user = User::where('email', $request['email'])->firstOrFail();
@@ -34,9 +35,9 @@ class AuthController extends Controller
 
         } catch (Exception $ex) {
             return response()->json([
-                'code' => 401,
+                'code' => ResponseCode::$errorCode['HTTP_ERROR_UNAUTHORIZED'],
                 'message' => $ex,
-            ], 401);
+            ], ResponseCode::$errorCode['HTTP_ERROR_UNAUTHORIZED']);
         }
     }
 }
