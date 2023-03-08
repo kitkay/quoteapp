@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class BaseController extends Controller
 {
@@ -16,17 +16,22 @@ class BaseController extends Controller
      *
      * @return JsonResponse
      */
-    public function sendResponse (
-        array $result,
-        string $message
-    ) {
+    public function sendResponse(
+        array  $collection,
+        string $message = ''
+    ): JsonResponse
+    {
         $response = [
             'success' => true,
-            'data' => $result,
+            'data' => $collection,
             'message' => $message
         ];
 
-        return response()->json($response, 200);
+        return response()->json(
+            $response,
+            200,
+            [],
+            JSON_PRETTY_PRINT);
     }
 
     /**
@@ -40,9 +45,10 @@ class BaseController extends Controller
      */
     public function sendError(
         string $error,
-        array $errorMsg = [],
-        int $code = 404
-    ) {
+        array  $errorMsg = [],
+        int    $code = 404
+    )
+    {
         $response = [
             'success' => false,
             'message' => $error

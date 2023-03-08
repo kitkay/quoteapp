@@ -12,4 +12,12 @@
 
 + app/Http/Controllers/API - handles all the API endpoints that would be served.
 
+
+### Technicalities
+Migrate and seed
++ php artisan migrate:fresh --seed --seeder=QuoteSeeder
+
+Install personal passport client
++ php artisan passport:client --personal
++ 
 # WIP

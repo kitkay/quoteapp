@@ -5,33 +5,21 @@ namespace App\Http\Controllers\API;
 use App\Models\Quote;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
-class QuoteController extends Controller
+class QuoteController extends BaseController
 {
     /**
      * Display a listing of the resource.
      *
      * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        $quotes = auth()->user()->quotes();
+//        $quotes =  Quote::get()->paginate();
+        $quotes =  DB::table('quotes')->paginate(10);
 
-        return response()->json([
-            'success' => true,
-            'data' => $quotes
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->sendResponse($quotes);
     }
 
     /**
@@ -87,18 +75,6 @@ class QuoteController extends Controller
             'success' => true,
             'data' => $quote->toArray()
         ], 400);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Quote  $quote
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Quote $quote)
-    {
-        //
     }
 
     /**

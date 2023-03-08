@@ -7,7 +7,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class RegisterController extends BaseController
 {
@@ -32,20 +32,28 @@ class RegisterController extends BaseController
      *
      * @return JsonResponse
      */
-    public function login(RegisterRequest $request)
+    public function login(Request $request): JsonResponse
     {
-        $request = [
-            'email' => $request->email,
-            'password' => $request->password
-        ];
+        try {
+//            $data = [
+//                'email' => $request->email,
+//                'password' => $request->password
+//            ];
 
-        if (auth()->attempt($request)) {
-            $token = auth()->user()->createToken('LaravelAuthApp')->accessToken;
+            if (auth()->attempt($request->only(['email', 'password']))) {
+                $token = auth()->user()->createToken('LaravelAuthApp')->accessToken;
+                return response()->json([
+                    'message' => 'Success',
+                    'token' => $token
+                ], 200);
+            } else {
+                return response()->json(['error' => 'Fail Login Attempt'], 403);
+            }
+        } catch (\Exception $ex) {
             return response()->json([
-                'token' => $token
-            ], 200);
-        } else {
-            return response()->json(['error' => 'Unauthorised'], 401);
+                'error' => 'Unauthorised Login',
+                'message' => $ex->getMessage(). ' - ' . $ex->getCode()
+            ], 401);
         }
     }
 }
