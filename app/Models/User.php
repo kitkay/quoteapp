@@ -13,7 +13,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use Uuids;
     use HasApiTokens, HasFactory, Notifiable;
@@ -53,7 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return HasMany
      */
-    public function quotes()
+    public function quotes(): HasMany
     {
         return $this->hasMany(Quote::class);
     }
