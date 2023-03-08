@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('register', [RegisterController::class, 'register']);
-Route::get('login', [RegisterController::class, 'login']);
+Route::post('login', [RegisterController::class, 'login']);
 
 Route::middleware('auth:api')->group(function () {
     Route::resource('quotes', QuoteController::class);
+    Route::get('list', [QuoteController::class, 'quote.list']);
 });

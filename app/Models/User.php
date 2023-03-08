@@ -53,7 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return HasMany
      */
-    public function quotes(): HasMany
+    public function quotes()
     {
         return $this->hasMany(Quote::class);
     }

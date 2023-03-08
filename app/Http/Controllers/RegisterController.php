@@ -8,25 +8,21 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends BaseController
 {
     public function register(RegisterRequest $request)
     {
         $user = new User();
-        $input = $request->all();
 
-        $input['password'] = bcrypt($input['password']);
-        $user->name = $input['name'];
-        $user->password = $input['password'];
-        $user->email = $input['email'];
+        $user['name'] = $request->name;
+        $user['email'] = $request->email;
+        $user['password'] = bcrypt($request->password);
         $user->save();
 
-        $success['token'] = $user->createToken('MyApp')->accessToken;
-        $success['name'] = $user->name;
+        $token = $user->createToken('LaravelAuthApp')->accessToken;
 
-        return $this->sendResponse($success, 'User register successfully.');
+        return response()->json(['token' => $token], 200);
     }
 
     /**
@@ -36,26 +32,20 @@ class RegisterController extends BaseController
      *
      * @return JsonResponse
      */
-    public function login(Request $request)
+    public function login(RegisterRequest $request)
     {
-        if (Auth::attempt([
+        $request = [
             'email' => $request->email,
             'password' => $request->password
-        ])) {
-            $user = Auth::user();
-            $success['token'] = $user->createToken('MyApp')->accessToken;
-            $success['name'] = $user->name;
+        ];
 
-            return $this->sendResponse(
-                $success,
-                'User login successfully.'
-            );
-
+        if (auth()->attempt($request)) {
+            $token = auth()->user()->createToken('LaravelAuthApp')->accessToken;
+            return response()->json([
+                'token' => $token
+            ], 200);
         } else {
-            return $this->sendError(
-                trans('Unauthorised.'),
-                [ 'error' => 'Unauthorised' ]
-            );
+            return response()->json(['error' => 'Unauthorised'], 401);
         }
     }
 }
