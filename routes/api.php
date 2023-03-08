@@ -19,5 +19,4 @@ Route::post('login', [RegisterController::class, 'login']);
 
 Route::middleware('auth:api')->group(function () {
     Route::resource('quotes', QuoteController::class);
-    Route::get('list', [QuoteController::class, 'quote.list']);
 });
