@@ -11,7 +11,7 @@ class BaseController extends Controller
     /**
      * Send Success Response
      *
-     * @param Collection $result
+     * @param Collection $collection
      * @param string $message
      *
      * @return JsonResponse
