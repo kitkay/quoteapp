@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\API\BaseController;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class RegisterController extends BaseController
 {
-    public function register(RegisterRequest $request)
+    /**
+     * Register User
+     * @param RegisterRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function register(RegisterRequest $request): JsonResponse
     {
         $user = new User();
 
@@ -22,7 +29,10 @@ class RegisterController extends BaseController
 
         $token = $user->createToken('LaravelAuthApp')->accessToken;
 
-        return response()->json(['token' => $token], 200);
+        return response()->json(
+            ['token' => $token],
+            200
+        );
     }
 
     /**
@@ -35,24 +45,28 @@ class RegisterController extends BaseController
     public function login(Request $request): JsonResponse
     {
         try {
-//            $data = [
-//                'email' => $request->email,
-//                'password' => $request->password
-//            ];
+            $data = $request->only([
+                'email',
+                'password'
+            ]);
 
-            if (auth()->attempt($request->only(['email', 'password']))) {
+            if (auth()->attempt($data)) {
                 $token = auth()->user()->createToken('LaravelAuthApp')->accessToken;
                 return response()->json([
                     'message' => 'Success',
                     'token' => $token
                 ], 200);
             } else {
-                return response()->json(['error' => 'Fail Login Attempt'], 403);
+                return response()->json(
+                    ['error' => 'Fail Login Attempt'],
+                    403
+                );
             }
-        } catch (\Exception $ex) {
+
+        } catch (Exception $ex) {
             return response()->json([
                 'error' => 'Unauthorised Login',
-                'message' => $ex->getMessage(). ' - ' . $ex->getCode()
+                'message' => $ex->getMessage() . ' - ' . $ex->getCode()
             ], 401);
         }
     }

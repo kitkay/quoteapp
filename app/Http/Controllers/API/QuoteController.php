@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Models\Quote;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class QuoteController extends BaseController
 {
@@ -16,9 +15,7 @@ class QuoteController extends BaseController
      */
     public function index(): JsonResponse
     {
-//        $quotes =  Quote::get()->paginate();
-        $quotes =  DB::table('quotes')->paginate(10);
-
+        $quotes =  Quote::all();
         return $this->sendResponse($quotes);
     }
 
