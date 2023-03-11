@@ -3,11 +3,20 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Quote;
+use App\Services\QuoteServices;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class QuoteController extends BaseController
 {
+    /** @var QuoteServices $service*/
+    private QuoteServices $services;
+
+    public function __construct(QuoteServices $quoteServices)
+    {
+        $this->services = $quoteServices;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,8 @@ class QuoteController extends BaseController
      */
     public function index(): JsonResponse
     {
-        $quotes =  Quote::all();
+        dd('j');
+        $quotes =  $this->services->all();
         return $this->sendResponse($quotes);
     }
 
@@ -80,9 +90,9 @@ class QuoteController extends BaseController
      * @param Request $request
      * @param  \App\Models\Quote  $quote
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function update(Request $request, Quote $quote)
+    public function update(Request $request, Quote $quote): JsonResponse
     {
         //
     }
@@ -94,7 +104,7 @@ class QuoteController extends BaseController
      *
      * @return JsonResponse
      */
-    public function destroy(Quote $quote)
+    public function destroy(Quote $quote): JsonResponse
     {
         $quote = auth()->user()->quote()->find($quote);
 
