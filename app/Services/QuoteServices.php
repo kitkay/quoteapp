@@ -2,21 +2,26 @@
 
 namespace App\Services;
 
-use App\Interfaces\QuoteRepositoryInterface;
+use App\Repositories\QuoteRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class QuoteServices
 {
-    /** @var QuoteRepositoryInterface $interface */
-    private QuoteRepositoryInterface $interface;
+    /** @var QuoteRepository $repository */
+    private QuoteRepository $repository;
 
-    public function __construct(QuoteRepositoryInterface $quoteInterface)
+    public function __construct(QuoteRepository $quoteRepository)
     {
-        $this->interface = $quoteInterface;
+        $this->repository = $quoteRepository;
     }
 
-    public function all()
+    /**
+     * Show All Quotes
+     *
+     * @return Collection
+     */
+    public function all(): Collection
     {
-        dd($this->interface->all());
-//        return $this->all();
+        return $this->repository->all();
     }
 }

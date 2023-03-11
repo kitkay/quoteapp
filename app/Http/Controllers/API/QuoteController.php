@@ -24,7 +24,6 @@ class QuoteController extends BaseController
      */
     public function index(): JsonResponse
     {
-        dd('j');
         $quotes =  $this->services->all();
         return $this->sendResponse($quotes);
     }

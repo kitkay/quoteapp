@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Repositories\QuoteRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -11,7 +12,6 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind();
     }
 
     /**
