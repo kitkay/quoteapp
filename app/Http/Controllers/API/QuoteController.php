@@ -12,6 +12,11 @@ class QuoteController extends BaseController
     /** @var QuoteServices $service*/
     private QuoteServices $services;
 
+    /**
+     * Create Quote Controller including all dependency.
+     *
+     * @param QuoteServices $quoteServices
+     */
     public function __construct(QuoteServices $quoteServices)
     {
         $this->services = $quoteServices;
@@ -35,7 +40,7 @@ class QuoteController extends BaseController
      *
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $this->validate($request, [
             'title' => 'required',
@@ -66,7 +71,7 @@ class QuoteController extends BaseController
      *
      * @return JsonResponse
      */
-    public function show(Quote $quote)
+    public function show(Quote $quote): JsonResponse
     {
         $quote = auth()->user()->quotes()->find();
 
