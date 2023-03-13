@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Feature\..\Controller;
+namespace Tests\Feature\Repository;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class QuoteTest extends TestCase
+class QuoteRepositoryTest extends TestCase
 {
     /**
      * A basic feature test example.
